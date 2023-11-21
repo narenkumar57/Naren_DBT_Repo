@@ -1,18 +1,36 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Run dbt Models
+ 
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+ 
 jobs:
-  Explore-GitHub-Actions:
+  run-dbt:
     runs-on: windows-latest
+ 
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: Checkout Repository
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+        with:
+          repository: narenkumar57/Naren_DBT_Repo  # Corrected the repository URL
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+ 
+      - name: Install dbt and dependencies
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          python -m pip install --upgrade pip
+          pip install dbt
+          pip install dbt-snowflake
+ 
+      - name: Create Environment File
+        run: |
+          echo 'C:\Users\naren\Desktop\DBTCORE\DBT Project\dbt-env\Scripts' >> $GITHUB_PATH
+          echo 'C:\Users\naren\.dbt' >> $GITHUB_PATH
+          echo 'C:\Users\naren\Desktop\DBTCORE\DBT Project\dbt_poc' >> $GITHUB_PATH
+      - name: Run dbt models
+        run: |
+          dbt run --profiles-dir C:\Users\naren\.dbt
