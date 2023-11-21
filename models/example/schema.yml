@@ -1,0 +1,14 @@
+
+version: 2
+
+models:
+  - name: EMPDATA
+    description: "A starter dbt model"
+    columns:
+      - name: EMPNO
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+  
