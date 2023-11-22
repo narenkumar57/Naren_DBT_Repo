@@ -29,7 +29,7 @@ jobs:
       - name: Create Environment File
         run: |
           echo 'C:\Users\naren\Desktop\DBTCORE\DBT Project\dbt-env\Scripts' >> $GITHUB_PATH
-          echo 'C:\Users\naren\.dbt\profiles.yml' >> $GITHUB_PATH
+          echo '~/.dbt/profiles.yml' >> $GITHUB_PATH
           echo 'C:\Users\naren\Desktop\DBTCORE\DBT Project\dbt_poc' >> $GITHUB_PATH
       - name: Run dbt models
         run: |
